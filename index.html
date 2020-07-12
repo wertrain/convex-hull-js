@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Convex Hull in JavaScript</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <script>
+      const canvasWidth = 1280, canvasHeight = 720;
+      function main(context) {
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.fillStyle = "rgba(128, 0, 0, 0.5)";
+        context.fillRect(0, 0, canvasWidth, canvasHeight);
+        setInterval(function() {
+        }, 33);
+      }
+      function onMouseMove(e) {
+      }
+    </script>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="./js/common.js"></script>
+    <script>
+      let canvas = ConvexHullEditor.Common.run(main);
+      canvas.addEventListener('click', onClick, false);
+      canvas.addEventListener('mousemove', onMouseMove, false);
+    </script>
+  </body>
+</html>
