@@ -13,14 +13,14 @@
       function updateCanvas() {
         let ctx = canvasContext
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
         for (let index in pointList) {
           point = pointList[index];
           ctx.beginPath();
           ctx.arc(point.x - 5, point.y - 5, 10, 0 * Math.PI / 180, 360 * Math.PI / 180, false) ;
-          ctx.fillStyle = "rgba(255,0,0,0.8)" ;
+          ctx.fillStyle = "rgba(0,0,0,0.5)" ;
           ctx.fill() ;
           ctx.strokeStyle = "purple" ;
         }
