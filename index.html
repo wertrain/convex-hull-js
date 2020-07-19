@@ -10,39 +10,51 @@
       const canvasWidth = 1280, canvasHeight = 720;
       let canvasContext = null;
       let pointList = []
+      let pointConvexHull = []
       function updateCanvas() {
         let ctx = canvasContext
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
+        // 頂点の描画
+        const arcSize = 10, arcSizeHalf = arcSize / 2;
         for (let index in pointList) {
           point = pointList[index];
           ctx.beginPath();
-          ctx.arc(point.x - 5, point.y - 5, 10, 0 * Math.PI / 180, 360 * Math.PI / 180, false) ;
+          ctx.arc(point.x - arcSizeHalf, point.y - arcSizeHalf, arcSize, 0 * Math.PI / 180, 360 * Math.PI / 180, false) ;
           ctx.fillStyle = "rgba(0,0,0,0.5)" ;
           ctx.fill() ;
-          ctx.strokeStyle = "purple" ;
+        }
+
+        // 凸包の描画
+        if (pointConvexHull != null && pointConvexHull.length > 0) {
+          ctx.beginPath();
+          ctx.moveTo(pointConvexHull[0].x - arcSizeHalf, pointConvexHull[0].y - arcSizeHalf);
+          for (let index = 1, max = pointConvexHull.length; index < max; ++index) {
+            point = pointConvexHull[index];
+            ctx.lineTo(point.x - arcSizeHalf, point.y - arcSizeHalf);
+          }
+          ctx.closePath();
+          ctx.stroke();
         }
       }
       function onClick(e) {
         pointList.push({x: e.clientX, y:e.clientY });
-        console.log(pointList);
+        pointConvexHull = ConvexHull.Algorithm.GiftWrapping(pointList);
         updateCanvas();
-      }
-      function onMouseMove(e) {
       }
     </script>
     <canvas id="canvas" width="1280" height="720"></canvas>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="./js/common.js"></script>
+    <script src="./js/convex_hull.js"></script>
     <script>
       let canvas = ConvexHullEditor.Common.run(function(context) {
         canvasContext = context;
       });
       canvas.addEventListener('click', onClick, false);
-      canvas.addEventListener('mousemove', onMouseMove, false);
     </script>
   </body>
 </html>
