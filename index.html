@@ -3,16 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Convex Hull in JavaScript</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
     <script>
       const canvasWidth = 1280, canvasHeight = 720;
       let canvasContext = null;
+      let canvas = null;
       let pointList = []
       let pointConvexHull = []
+      
       function updateCanvas() {
         let ctx = canvasContext
+        // キャンバスのクリア
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -40,18 +44,41 @@
         }
       }
       function onClick(e) {
-        pointList.push({x: e.clientX, y:e.clientY });
+        var rect = canvas.getBoundingClientRect();
+        pointList.push({
+          x: e.clientX - rect.left, 
+          y: e.clientY - rect.top
+        });
         pointConvexHull = ConvexHull.Algorithm.GiftWrapping(pointList);
         updateCanvas();
       }
     </script>
-    <canvas id="canvas" width="1280" height="720"></canvas>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <div class="container">
+      <h1>Convex Hull Algorithm</h1>
+
+      <form id="algorithm">
+        <div class="radio">
+          <label><input type="radio" name="algorithm" id="giftwrapping" checked> GiftWrapping</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="algorithm" id="grahamscan" disabled> GrahamScan</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="algorithm" id="quickHull" disabled> QuickHull</label>
+        </div>
+        <canvas id="canvas" width="1280" height="720"></canvas>
+      </form>
+
+    </div> <!-- /container -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./js/common.js"></script>
     <script src="./js/convex_hull.js"></script>
     <script>
-      let canvas = ConvexHullEditor.Common.run(function(context) {
+      canvas = ConvexHullEditor.Common.run(function(context) {
         canvasContext = context;
       });
       canvas.addEventListener('click', onClick, false);
