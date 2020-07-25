@@ -49,6 +49,7 @@
           x: e.clientX - rect.left, 
           y: e.clientY - rect.top
         });
+        
         pointConvexHull = ConvexHull.Algorithm.GiftWrapping(pointList);
         updateCanvas();
       }
@@ -65,7 +66,7 @@
           <label><input type="radio" name="algorithm" id="grahamscan" disabled> GrahamScan</label>
         </div>
         <div class="radio">
-          <label><input type="radio" name="algorithm" id="quickHull" disabled> QuickHull</label>
+          <label><input type="radio" name="algorithm" id="quickhull" disabled> QuickHull</label>
         </div>
         <canvas id="canvas" width="1280" height="720"></canvas>
       </form>
