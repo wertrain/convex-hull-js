@@ -46,4 +46,14 @@ var ConvexHull = {};
 
     return result;
   }
+
+  // Grahan Scan
+  ConvexHull.Algorithm.GrahanScan = function(points) {
+    return [];
+  }
+  
+  // Quickhull 法
+  ConvexHull.Algorithm.Quickhull = function(points) {
+    return [];
+  }
 }
