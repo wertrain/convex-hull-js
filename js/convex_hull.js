@@ -56,4 +56,7 @@ var ConvexHull = {};
   ConvexHull.Algorithm.Quickhull = function(points) {
     return [];
   }
+
+  // デフォルトのアルゴリズムはギフト包装法
+  ConvexHull.Algorithm.Function = ConvexHull.Algorithm.GiftWrapping;
 }

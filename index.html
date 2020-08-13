@@ -50,13 +50,7 @@
           y: e.clientY - rect.top
         });
 
-        let algorithm = ConvexHull.Algorithm.GiftWrapping;
-
-        var elements = document.getElementUd("algorithm");
-        for (let element in elements) {
-
-        }
-        pointConvexHull = ConvexHull.Algorithm.GiftWrapping(pointList);
+        pointConvexHull = ConvexHull.Algorithm.Function(pointList);
         updateCanvas();
       }
     </script>
@@ -90,15 +84,17 @@
 
         var elements = document.algorithms.algorithm;
         for (var i = 0; i < elements.length; ++i) {
-          console.log(elements[i]);
-          elements[i].addEventListener("change", function(radio) {
-            switch(this.id) {
-              case "giftwrapping": algorithm = ConvexHull.Algorithm.GiftWrapping; break;
-              case "grahamscan": algorithm = ConvexHull.Algorithm.GrahanScan; break;
-              case "quickhull": algorithm = ConvexHull.Algorithm.Quickhull; break;
+          elements[i].addEventListener("change", function() {
+            if (this.checked) {
+              switch(this.id) {
+                case "giftwrapping": ConvexHull.Algorithm.Function = ConvexHull.Algorithm.GiftWrapping; break;
+                case "grahamscan": ConvexHull.Algorithm.Function = ConvexHull.Algorithm.GrahanScan; break;
+                case "quickhull": ConvexHull.Algorithm.Function = ConvexHull.Algorithm.Quickhull; break;
+              }
             }
           });
         }
+        
       });
       canvas.addEventListener('click', onClick, false);
     </script>
